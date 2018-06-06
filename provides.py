@@ -28,10 +28,10 @@ class Infoblox(RelationBase):
         self.remove_state('{relation_name}.connected')
 
     def configure_plugin(self, dc_id=None, config=None):
-            """Send principle plugin information"""
-            conversation = self.conversation()
-            relation_info = {
-                'dc_id': dc_id,
-                'config': json.dumps(config),
-            }
-            conversation.set_remote(**relation_info)
+        """Send principle infoblox connection information"""
+        conversation = self.conversation()
+        relation_info = {
+            'dc_id': dc_id,
+            'config': json.dumps(config),
+        }
+        conversation.set_remote(**relation_info)
