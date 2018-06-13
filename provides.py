@@ -11,7 +11,7 @@ class Infoblox(RelationBase):
 
     scope = scopes.GLOBAL
 
-    @hook('{provides:infoblox-api}-relation-{joined, changed}')
+    @hook('{provides:infoblox}-relation-{joined, changed}')
     def peers_joined(self):
         conv = self.conversation()
         conv.set_state('{relation_name}.joined')
@@ -19,7 +19,7 @@ class Infoblox(RelationBase):
         self.set_state('{relation_name}.available')
 
 
-    @hook('{provides:infoblox-api}-relation-{broken, departed}')
+    @hook('{provides:infoblox}-relation-{broken, departed}')
     def peers_departed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.joined')
