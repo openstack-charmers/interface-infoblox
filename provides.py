@@ -21,10 +21,9 @@ class Infoblox(RelationBase):
     @hook('{provides:infoblox}-relation-changed')
     def peers_joined(self):
         conv = self.conversation()
+        conv.remove_state('{relation_name}.configured')
         if conv.get_remote('configured'):
             conv.set_state('{relation_name}.configured')
-        else:
-            conv.remove_state('{relation_name}.configured')
 
     @hook('{provides:infoblox}-relation-{broken, departed}')
     def peers_departed(self):
