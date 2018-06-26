@@ -24,6 +24,8 @@ class Infoblox(RelationBase):
         conv.remove_state('{relation_name}.configured')
         if conv.get_remote('configured'):
             conv.set_state('{relation_name}.configured')
+        if conv.get_remote('create-defs')
+            conv.set_state('infoblox.create-defs')
 
     @hook('{provides:infoblox}-relation-{broken, departed}')
     def peers_departed(self):
@@ -39,5 +41,13 @@ class Infoblox(RelationBase):
         relation_info = {
             'dc_id': dc_id,
             'config': json.dumps(config),
+        }
+        conversation.set_remote(**relation_info)
+
+    def migrate_principal(self, dc_id=None, config=None):
+        """Request a restart of principle services"""
+        conversation = self.conversation()
+        relation_info = {
+            'migrate': True
         }
         conversation.set_remote(**relation_info)
