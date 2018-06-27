@@ -19,15 +19,15 @@ from charms.reactive import RelationBase
 from charms.reactive import scopes
 
 
-class InfobloxProvides(RelationBase):
+class InfobloxRequires(RelationBase):
     scope = scopes.GLOBAL
 
-    @hook('{provides:designate}-relation-{joined,changed}')
+    @hook('{requires:infoblox}-relation-{joined,changed}')
     def changed(self):
         self.set_state('{relation_name}.connected')
         self.set_state('{relation_name}.available')
 
-    @hook('{provides:designate}-relation-{departed,broken}')
+    @hook('{requires:infoblox}-relation-{departed,broken}')
     def departed(self):
         self.remove_state('{relation_name}.connected')
         self.remove_state('{relation_name}.available')

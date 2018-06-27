@@ -7,7 +7,7 @@ from charms.reactive import hook
 from charms.reactive import scopes
 
 
-class Infoblox(RelationBase):
+class InfobloxProvides(RelationBase):
 
     scope = scopes.GLOBAL
 
@@ -35,7 +35,7 @@ class Infoblox(RelationBase):
         self.remove_state('{relation_name}.available')
         self.remove_state('{relation_name}.connected')
 
-    def configure_principal(self, config, dc_id=None):
+    def configure_principal(self, config=None, dc_id=None):
         """Send principle infoblox connection information"""
         conv = self.conversation()
         relation_info = {
