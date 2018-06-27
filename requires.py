@@ -25,7 +25,9 @@ class InfobloxProvides(RelationBase):
     @hook('{provides:designate}-relation-{joined,changed}')
     def changed(self):
         self.set_state('{relation_name}.connected')
+        self.set_state('{relation_name}.available')
 
     @hook('{provides:designate}-relation-{departed,broken}')
     def departed(self):
         self.remove_state('{relation_name}.connected')
+        self.remove_state('{relation_name}.available')
