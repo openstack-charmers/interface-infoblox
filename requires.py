@@ -31,3 +31,8 @@ class InfobloxRequires(RelationBase):
     def departed(self):
         self.remove_state('{relation_name}.connected')
         self.remove_state('{relation_name}.available')
+
+    def get_config(self):
+        dc_id = self.get_remote('dc_id')
+        config = self.get_remote('config')
+        return {'dc_id': dc_id, 'config': config}
