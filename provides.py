@@ -35,19 +35,7 @@ class InfobloxProvides(RelationBase):
         self.remove_state('{relation_name}.available')
         self.remove_state('{relation_name}.connected')
 
-    def configure_principal(self, config=None, dc_id=None):
+    def configure_principal(self, relation_info):
         """Send principle infoblox connection information"""
         conv = self.conversation()
-        relation_info = {
-            'dc_id': dc_id,
-            'config': json.dumps(config),
-        }
-        conv.set_remote(**relation_info)
-
-    def migrate_principal(self, dc_id=None, config=None):
-        """Request a restart of principle services"""
-        conv = self.conversation()
-        relation_info = {
-            'migrate': True
-        }
         conv.set_remote(**relation_info)
