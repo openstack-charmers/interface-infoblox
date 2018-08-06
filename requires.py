@@ -32,7 +32,37 @@ class InfobloxRequires(RelationBase):
         self.remove_state('{relation_name}.connected')
         self.remove_state('{relation_name}.available')
 
-    def get_config(self):
-        dc_id = self.get_remote('dc_id')
-        config = self.get_remote('config')
-        return {'dc_id': dc_id, 'config': config}
+    @property
+    def pool(self):
+        conv = self.conversation()
+        return conv.get_remote('pool')
+
+    @property
+    def pool_target(self):
+        conv = self.conversation()
+        return conv.get_remote('pool_target')
+
+    @property
+    def nameserver(self):
+        conv = self.conversation()
+        return conv.get_remote('nameserver')
+
+    @property
+    def host(self):
+        conv = self.conversation()
+        return conv.get_remote('host')
+
+    @property
+    def wapi_version(self):
+        conv = self.conversation()
+        return conv.get_remote('wapi_version')
+
+    @property
+    def username(self):
+        conv = self.conversation()
+        return conv.get_remote('admin_username')
+
+    @property
+    def password(self):
+        conv = self.conversation()
+        return conv.get_remote('admin_password')
