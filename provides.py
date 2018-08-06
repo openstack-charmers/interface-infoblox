@@ -22,8 +22,6 @@ class InfobloxProvides(RelationBase):
     def infoblox_changed(self):
         conv = self.conversation()
         conv.remove_state('{relation_name}.configured')
-        if conv.get_remote('configured'):
-            conv.set_state('{relation_name}.configured')
         if conv.get_remote('create-defs'):
             conv.set_state('infoblox.create-defs')
 
