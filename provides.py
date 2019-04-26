@@ -10,10 +10,8 @@ class InfobloxProvides(Endpoint):
 
     @when_all('endpoint.{endpoint_name}.changed',
               'endpoint.{endpoint_name}.joined')
-    @when_not('endpoint.{endpoint_name}.changed.neutron_api_ready')
     def joined(self):
         set_flag(self.expand_name('endpoint.{endpoint_name}.connected'))
-        clear_flag(self.expand_name('endpoint.{endpoint_name}.configured'))
         clear_flag(self.expand_name('endpoint.{endpoint_name}.changed'))
 
     @when_not('endpoint.{endpoint_name}.joined')
@@ -21,15 +19,15 @@ class InfobloxProvides(Endpoint):
         clear_flag(self.expand_name('endpoint.{endpoint_name}.connected'))
         clear_flag(self.expand_name('endpoint.{endpoint_name}.departed'))
 
-    @when('endpoint.{endpoint_name}.changed.neutron_api_ready')
-    def neutron_ready(self):
-        clear_flag(
-            self.expand_name(
-                'endpoint.{endpoint_name}.changed.neutron_api_ready'))
-        set_flag(self.expand_name('endpoint.{endpoint_name}.neutron_server_ready'))
-
     def configure_principal(self, configuration):
         """Send principle infoblox configuration"""
 
         for relation in self.relations:
             relation.to_publish.update(configuration)
+
+    def principal_charm_state(self):
+        """Retrieve principal charm state
+        :returns state: Principal neutron-api charm state
+        :rtype state: Boolean"""
+
+        return self.all_joined_units.received.get('neutron_api_ready')
