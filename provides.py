@@ -7,17 +7,15 @@ from charms.reactive import scopes
 class InfobloxProvides(Endpoint):
     scope = scopes.GLOBAL
 
-
     @when_all('endpoint.{endpoint_name}.changed',
               'endpoint.{endpoint_name}.joined')
-    def joined(self):
-        set_flag(self.expand_name('endpoint.{endpoint_name}.connected'))
-        clear_flag(self.expand_name('endpoint.{endpoint_name}.changed'))
+    def data_changed(self):
+        set_flag(self.expand_name('{endpoint_name}.available'))
 
     @when_not('endpoint.{endpoint_name}.joined')
     def broken(self):
-        clear_flag(self.expand_name('endpoint.{endpoint_name}.connected'))
-        clear_flag(self.expand_name('endpoint.{endpoint_name}.departed'))
+        clear_flag(self.expand_name('{endpoint_name}.available'))
+        clear_flag(self.expand_name('{endpoint_name}.departed'))
 
     def configure_principal(self, configuration):
         """Send principle infoblox configuration"""
