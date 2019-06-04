@@ -11,11 +11,11 @@ class InfobloxProvides(Endpoint):
               'endpoint.{endpoint_name}.joined')
     def data_changed(self):
         set_flag(self.expand_name('{endpoint_name}.available'))
+        clear_flag(self.expand_name('{endpoint_name}.configured'))
 
     @when_not('endpoint.{endpoint_name}.joined')
     def broken(self):
         clear_flag(self.expand_name('{endpoint_name}.available'))
-        clear_flag(self.expand_name('{endpoint_name}.departed'))
 
     def configure_principal(self, configuration):
         """Send principle infoblox configuration"""
