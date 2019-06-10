@@ -5,7 +5,7 @@ from charms.reactive import scopes
 
 
 class InfobloxProvides(Endpoint):
-    scope = scopes.GLOBAL
+    scope = scopes.UNIT
 
     @when_all('endpoint.{endpoint_name}.changed',
               'endpoint.{endpoint_name}.joined')
